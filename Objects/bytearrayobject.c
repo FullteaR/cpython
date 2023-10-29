@@ -69,7 +69,7 @@ _canresize(PyByteArrayObject *self)
 {
     if (self->ob_exports > 0) {
         PyErr_SetString(PyExc_BufferError,
-                "Existing exports of data: object cannot be re-sized");
+                "Existing exports of data: object cannot be re-sized in line 72 / bytearrayobject.c");
         return 0;
     }
     return 1;

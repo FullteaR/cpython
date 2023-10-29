@@ -48,7 +48,7 @@ check_exports(bytesio *self)
 {
     if (self->exports > 0) {
         PyErr_SetString(PyExc_BufferError,
-                        "Existing exports of data: object cannot be re-sized");
+                        "Existing exports of data: object cannot be re-sized in line 51 / bytesio.c");
         return 1;
     }
     return 0;
@@ -942,7 +942,7 @@ _io_BytesIO___init___impl(bytesio *self, PyObject *initvalue)
 
     if (self->exports > 0) {
         PyErr_SetString(PyExc_BufferError,
-                        "Existing exports of data: object cannot be re-sized");
+                        "Existing exports of data: object cannot be re-sized in line 945 / bytesio.c");
         return -1;
     }
     if (initvalue && initvalue != Py_None) {
@@ -1091,9 +1091,6 @@ bytesiobuf_getbuffer(bytesiobuf *obj, Py_buffer *view, int flags)
 static void
 bytesiobuf_releasebuffer(bytesiobuf *obj, Py_buffer *view)
 {
-    if(obj->source == NULL) {
-        return;
-    }
     bytesio *b = (bytesio *) obj->source;
     b->exports--;
 }
