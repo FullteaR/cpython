@@ -700,7 +700,7 @@ mbuf_add_view(_PyManagedBufferObject *mbuf, const Py_buffer *src)
 
     mv->mbuf = (_PyManagedBufferObject*)Py_NewRef(mbuf);
     mbuf->exports++;
-    printf("mbuf->exports++ in mbuf_add_view(memoryobject.c) called");
+    printf("mbuf->exports++ in mbuf_add_view(memoryobject.c) called\n");
 
     return (PyObject *)mv;
 }
@@ -731,7 +731,7 @@ mbuf_add_incomplete_view(_PyManagedBufferObject *mbuf, const Py_buffer *src,
 
     mv->mbuf = (_PyManagedBufferObject*)Py_NewRef(mbuf);
     mbuf->exports++;
-    printf("mbuf->exports++ in mbuf_add_incomplete_view(memoryobject.c) called");
+    printf("mbuf->exports++ in mbuf_add_incomplete_view(memoryobject.c) called\n");
 
     return (PyObject *)mv;
 }
@@ -1587,7 +1587,7 @@ memory_getbuf(PyMemoryViewObject *self, Py_buffer *view, int flags)
 
     view->obj = Py_NewRef(self);
     self->exports++;
-    printf("self->exports++ in memory_getbuf(memoryobject.c) called");
+    printf("self->exports++ in memory_getbuf(memoryobject.c) called\n");
     return 0;
 }
 
@@ -1595,7 +1595,7 @@ static void
 memory_releasebuf(PyMemoryViewObject *self, Py_buffer *view)
 {
     self->exports--;
-    printf("self->exports-- in memory_releasebuf(memoryobject.c) called");
+    printf( "self->exports-- in memory_releasebuf(memoryobject.c) called\n");
     return;
     /* PyBuffer_Release() decrements view->obj after this function returns. */
 }

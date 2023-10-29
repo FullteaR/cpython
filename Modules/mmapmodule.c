@@ -23,7 +23,6 @@
 #endif
 
 #include <Python.h>
-#include <stdio.h>
 #include "pycore_abstract.h"      // _Py_convert_optional_to_ssize_t()
 #include "pycore_bytesobject.h"   // _PyBytes_Find()
 #include "pycore_fileutils.h"     // _Py_stat_struct
@@ -32,6 +31,7 @@
 #ifndef MS_WINDOWS
 #  include <unistd.h>             // close()
 #endif
+#include <stdio.h>
 
 // to support MS_WINDOWS_SYSTEM OpenFileMappingA / CreateFileMappingA
 // need to be replaced with OpenFileMappingW / CreateFileMappingW
@@ -934,7 +934,7 @@ mmap_buffer_getbuf(mmap_object *self, Py_buffer *view, int flags)
                           (self->access == ACCESS_READ), flags) < 0)
         return -1;
     self->exports++;
-    printf("self->exports++ in mmap_buffer_getbuf(mmapmodule.c) called");
+    printf("self->exports++ in mmap_buffer_getbuf(mmapmodule.c) called\n");
     return 0;
 }
 
@@ -942,7 +942,7 @@ static void
 mmap_buffer_releasebuf(mmap_object *self, Py_buffer *view)
 {
     self->exports--;
-    printf("self->exports-- in mmap_buffer_releasebuf(mmapmodule.c) called");
+    printf("self->exports-- in mmap_buffer_releasebuf(mmapmodule.c) called\n");
 }
 
 static Py_ssize_t
