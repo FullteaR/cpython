@@ -1094,6 +1094,8 @@ bytesiobuf_getbuffer(bytesiobuf *obj, Py_buffer *view, int flags)
                             PyBytes_AS_STRING(b->buf), b->string_size,
                             0, flags);
     b->exports++;
+    PyErr_SetString(PyExc_BufferError,
+                        "b->exports++ in bytesiobuf_getbuffer(bytesio.c) called");
     return 0;
 }
 
@@ -1102,6 +1104,8 @@ bytesiobuf_releasebuffer(bytesiobuf *obj, Py_buffer *view)
 {
     bytesio *b = (bytesio *) obj->source;
     b->exports--;
+    PyErr_SetString(PyExc_BufferError,
+                        "b->exports-- in bytesiobuf_releasebuffer(bytesio.c) called");
 }
 
 static int
