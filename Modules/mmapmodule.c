@@ -24,6 +24,7 @@
 
 #define PY_SSIZE_T_CLEAN
 #include <Python.h>
+#include <stdio.h>
 #include "pycore_bytesobject.h"   // _PyBytes_Find()
 #include "pycore_fileutils.h"     // _Py_stat_struct
 #include "structmember.h"         // PyMemberDef
@@ -940,8 +941,7 @@ mmap_buffer_getbuf(mmap_object *self, Py_buffer *view, int flags)
                           (self->access == ACCESS_READ), flags) < 0)
         return -1;
     self->exports++;
-    PyErr_SetString(PyExc_BufferError,
-                        "self->exports++ in mmap_buffer_getbuf(mmapmodule.c) called");
+    printf("self->exports++ in mmap_buffer_getbuf(mmapmodule.c) called");
     return 0;
 }
 
@@ -949,8 +949,7 @@ static void
 mmap_buffer_releasebuf(mmap_object *self, Py_buffer *view)
 {
     self->exports--;
-    PyErr_SetString(PyExc_BufferError,
-                        "self->exports-- in mmap_buffer_releasebuf(mmapmodule.c) called");
+    printf("self->exports-- in mmap_buffer_releasebuf(mmapmodule.c) called");
 }
 
 static Py_ssize_t
