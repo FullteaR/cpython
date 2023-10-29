@@ -16,6 +16,7 @@
 #include "pycore_object.h"        // _PyObject_GC_UNTRACK()
 #include "pycore_strhex.h"        // _Py_strhex_with_sep()
 #include <stddef.h>               // offsetof()
+#include <stdio.h>
 
 /*[clinic input]
 class memoryview "PyMemoryViewObject *" "&PyMemoryView_Type"
@@ -699,8 +700,7 @@ mbuf_add_view(_PyManagedBufferObject *mbuf, const Py_buffer *src)
 
     mv->mbuf = (_PyManagedBufferObject*)Py_NewRef(mbuf);
     mbuf->exports++;
-    PyErr_SetString(PyExc_BufferError,
-                        "mbuf->exports++ in mbuf_add_view(memoryobject.c) called");
+    printf("mbuf->exports++ in mbuf_add_view(memoryobject.c) called");
 
     return (PyObject *)mv;
 }
@@ -731,8 +731,7 @@ mbuf_add_incomplete_view(_PyManagedBufferObject *mbuf, const Py_buffer *src,
 
     mv->mbuf = (_PyManagedBufferObject*)Py_NewRef(mbuf);
     mbuf->exports++;
-    PyErr_SetString(PyExc_BufferError,
-                        "mbuf->exports++ in mbuf_add_incomplete_view(memoryobject.c) called");
+    printf("mbuf->exports++ in mbuf_add_incomplete_view(memoryobject.c) called");
 
     return (PyObject *)mv;
 }
@@ -1588,8 +1587,7 @@ memory_getbuf(PyMemoryViewObject *self, Py_buffer *view, int flags)
 
     view->obj = Py_NewRef(self);
     self->exports++;
-    PyErr_SetString(PyExc_BufferError,
-                        "self->exports++ in memory_getbuf(memoryobject.c) called");
+    printf("self->exports++ in memory_getbuf(memoryobject.c) called");
     return 0;
 }
 
@@ -1597,8 +1595,7 @@ static void
 memory_releasebuf(PyMemoryViewObject *self, Py_buffer *view)
 {
     self->exports--;
-    PyErr_SetString(PyExc_BufferError,
-                        "self->exports-- in memory_releasebuf(memoryobject.c) called");
+    printf("self->exports-- in memory_releasebuf(memoryobject.c) called");
     return;
     /* PyBuffer_Release() decrements view->obj after this function returns. */
 }
