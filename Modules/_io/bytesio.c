@@ -1091,6 +1091,9 @@ bytesiobuf_getbuffer(bytesiobuf *obj, Py_buffer *view, int flags)
 static void
 bytesiobuf_releasebuffer(bytesiobuf *obj, Py_buffer *view)
 {
+    if(obj->source == NULL) {
+        return;
+    }
     bytesio *b = (bytesio *) obj->source;
     b->exports--;
 }
