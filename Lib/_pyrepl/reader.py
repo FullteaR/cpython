@@ -698,6 +698,7 @@ class Reader:
         of single-character strings."""
 
         trace("received command {cmd}", cmd=cmd)
+        print("received command ", cmd)
         if isinstance(cmd[0], str):
             command_type = self.commands.get(cmd[0], commands.invalid_command)
         elif isinstance(cmd[0], type):
@@ -706,10 +707,14 @@ class Reader:
             return  # nothing to do
 
         command = command_type(self, *cmd)  # type: ignore[arg-type]
+        print("command = ", command)
         command.do()
+        print("command.do() done")
 
         self.after_command(command)
+        print("self.after_command(command) done")
 
+        print("self.dirty = ", self.dirty)
         if self.dirty:
             self.refresh()
         else:
