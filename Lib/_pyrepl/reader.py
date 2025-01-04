@@ -686,10 +686,14 @@ class Reader:
         """Recalculate and refresh the screen."""
         if self.in_bracketed_paste and self.buffer and not self.buffer[-1] == "\n":
             return
-
+        print("self.console = ", self.console)
+        print("self.buffer = ", self.buffer)
         # this call sets up self.cxy, so call it first.
         self.screen = self.calc_screen()
+        print("self.screen = ", self.screen)
+        print("self.cxy = ", self.cxy)
         self.console.refresh(self.screen, self.cxy)
+        print("self.console.refresh(self.screen, self.cxy) done")
         self.dirty = False
 
     def do_cmd(self, cmd: tuple[str, list[str]]) -> None:
@@ -723,7 +727,6 @@ class Reader:
             self.last_command = command_type
 
         self.finished = bool(command.finish)
-        print("self.finished = ", self.finished)
         if self.finished:
             self.console.finish()
             self.finish()
