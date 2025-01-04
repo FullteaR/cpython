@@ -707,23 +707,23 @@ class Reader:
             return  # nothing to do
 
         command = command_type(self, *cmd)  # type: ignore[arg-type]
-        print("command = ", command)
         command.do()
-        print("command.do() done")
 
         self.after_command(command)
-        print("self.after_command(command) done")
 
         print("self.dirty = ", self.dirty)
         if self.dirty:
             self.refresh()
         else:
             self.update_cursor()
+        
+        print("self.refresh() or self.update_cursor() done")
 
         if not isinstance(cmd, commands.digit_arg):
             self.last_command = command_type
 
         self.finished = bool(command.finish)
+        print("self.finished = ", self.finished)
         if self.finished:
             self.console.finish()
             self.finish()
