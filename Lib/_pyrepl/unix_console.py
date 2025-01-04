@@ -266,6 +266,8 @@ class UnixConsole(Console):
 
         oldscr = self.screen[old_offset : old_offset + height]
         newscr = screen[offset : offset + height]
+        print("oldscr = ", oldscr)
+        print("newscr = ", newscr)
 
         # use hardware scrolling if we have it.
         if old_offset > offset and self._ri:
@@ -701,15 +703,11 @@ class UnixConsole(Console):
             self.move_cursor(0, y)
 
     def __write(self, text):
-        print("__write start")
         self.__buffer.append((text, 0))
-        print("__write end")
 
 
     def __write_code(self, fmt, *args):
-        print("__write_code start")
         self.__buffer.append((curses.tparm(fmt, *args), 1))
-        print("__write_code end")
 
     def __maybe_write_code(self, fmt, *args):
         if fmt:
