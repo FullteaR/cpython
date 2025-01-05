@@ -411,6 +411,7 @@ class Reader:
                     i += 1
         self.screeninfo = screeninfo
         self.cxy = self.pos2xy()
+        trace("self.msg: " + str(self.msg))
         if self.msg:
             for mline in self.msg.split("\n"):
                 screen.append(mline)
