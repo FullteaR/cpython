@@ -716,7 +716,6 @@ class Reader:
             self.refresh()
         else:
             self.update_cursor()
-        
 
         if not isinstance(cmd, commands.digit_arg):
             self.last_command = command_type
