@@ -319,8 +319,17 @@ class TestReader(TestCase):
             [
                 Event(evt="key", data='\n', raw=bytearray(b'\n')),
             ],
-            code_to_events("abcde")
+            code_to_events("abcde"),
+            [
+                Event(evt="key", data='\n', raw=bytearray(b'\n')),
+            ],           
         )
         reader, _ = handle_all_events(events)
-        self.assert_screen_equals(reader, 9 * "a")
+
+        expected = (
+            "input()\n"
+            "abcde\n"
+            "'abcde'\n"
+        )
+        self.assert_screen_equals(reader, expected)
         
