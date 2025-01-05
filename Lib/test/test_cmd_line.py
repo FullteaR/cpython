@@ -453,6 +453,11 @@ class CmdLineTest(unittest.TestCase):
         self.check_input(
             "print(repr(input()))",
             b"'abc'")
+        
+    def test_builtin_input_with_line_break(self):
+        self.check_input(
+            "print(repr(input(\"word\\n\")))",
+            b"word\n'abc'")
 
     def test_output_newline(self):
         # Issue 13119 Newline for print() should be \r\n on Windows.

@@ -314,16 +314,7 @@ class TestReader(TestCase):
         self.assert_screen_equals(reader, f"{code}a")
 
     def test_input_func_with_empty_prompt(self):
-        events = itertools.chain(
-            code_to_events("input()"),
-            [
-                Event(evt="key", data='\n', raw=bytearray(b'\n')),
-            ],
-            code_to_events("abcde"),
-            [
-                Event(evt="key", data='\n', raw=bytearray(b'\n')),
-            ],           
-        )
+        events = code_to_events("input()\nabcde\n")
         reader, _ = handle_all_events(events)
 
         expected = (
