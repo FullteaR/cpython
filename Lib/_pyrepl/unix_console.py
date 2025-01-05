@@ -266,10 +266,6 @@ class UnixConsole(Console):
 
         oldscr = self.screen[old_offset : old_offset + height]
         newscr = screen[offset : offset + height]
-        trace("self.screen: " + str(self.screen))
-        trace("screen: " + str(screen))
-        trace("oldscr: " + str(oldscr))
-        trace("newscr: " + str(newscr))
 
         # use hardware scrolling if we have it.
         if old_offset > offset and self._ri:
