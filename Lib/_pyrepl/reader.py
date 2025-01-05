@@ -686,14 +686,12 @@ class Reader:
         """Recalculate and refresh the screen."""
         if self.in_bracketed_paste and self.buffer and not self.buffer[-1] == "\n":
             return
-        print("self.console = ", self.console)
-        print("self.buffer = ", self.buffer)
+
         # this call sets up self.cxy, so call it first.
         self.screen = self.calc_screen()
-        print("self.screen = ", self.screen)
-        print("self.cxy = ", self.cxy)
+
         self.console.refresh(self.screen, self.cxy)
-        print("self.console.refresh(self.screen, self.cxy) done")
+
         self.dirty = False
 
     def do_cmd(self, cmd: tuple[str, list[str]]) -> None:
@@ -702,7 +700,6 @@ class Reader:
         of single-character strings."""
 
         trace("received command {cmd}", cmd=cmd)
-        print("received command ", cmd)
         if isinstance(cmd[0], str):
             command_type = self.commands.get(cmd[0], commands.invalid_command)
         elif isinstance(cmd[0], type):
@@ -715,13 +712,11 @@ class Reader:
 
         self.after_command(command)
 
-        print("self.dirty = ", self.dirty)
         if self.dirty:
             self.refresh()
         else:
             self.update_cursor()
         
-        print("self.refresh() or self.update_cursor() done")
 
         if not isinstance(cmd, commands.digit_arg):
             self.last_command = command_type
