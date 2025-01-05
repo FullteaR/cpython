@@ -373,11 +373,14 @@ class Reader:
                 prompt = ""
             else:
                 prompt = self.get_prompt(ln, ll >= pos >= 0)
+            trace("prompt = " + str(prompt))
+            trace("screen before while loop = " + str(screen))
             while "\n" in prompt:
                 pre_prompt, _, prompt = prompt.partition("\n")
                 last_refresh_line_end_offsets.append(offset)
                 screen.append(pre_prompt)
                 screeninfo.append((0, []))
+            trace("screen after while loop = " + str(screen))
             pos -= ll + 1
             prompt, lp = self.process_prompt(prompt)
             l, l2 = disp_str(line)
