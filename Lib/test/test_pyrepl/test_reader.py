@@ -312,3 +312,6 @@ class TestReader(TestCase):
         reader, _ = handle_all_events(events, prepare_reader=completing_reader)
 
         self.assert_screen_equals(reader, f"{code}a")
+
+    def test_tmp(self):
+        self.assertListEqual([1], [2])
