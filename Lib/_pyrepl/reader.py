@@ -334,6 +334,7 @@ class Reader:
         if self.last_refresh_cache.valid(self):
             offset, num_common_lines = self.last_refresh_cache.get_cached_location(self)
 
+        trace("self.last_refresh_cache.screen = " + str(self.last_refresh_cache.screen))
         screen = self.last_refresh_cache.screen
         del screen[num_common_lines:]
 
@@ -348,7 +349,10 @@ class Reader:
 
         prompt_from_cache = (offset and self.buffer[offset - 1] != "\n")
 
+        trace("self.buffer = " + str(self.buffer))
+        trace("offset = " + str(offset))
         lines = "".join(self.buffer[offset:]).split("\n")
+        trace("lines = " + str(lines))
 
         cursor_found = False
         lines_beyond_cursor = 0
