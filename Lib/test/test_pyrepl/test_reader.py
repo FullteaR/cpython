@@ -313,5 +313,14 @@ class TestReader(TestCase):
 
         self.assert_screen_equals(reader, f"{code}a")
 
-    def test_tmp(self):
-        self.assertListEqual([1], [2])
+    def test_input_func_with_empty_prompt(self):
+        events = itertools.chain(
+            code_to_events("input()"),
+            [
+                Event(evt="key", data='\n', raw=bytearray(b'\n')),
+            ],
+            code_to_events("abcde")
+        )
+        reader, _ = handle_all_events(events)
+        self.assert_screen_equals(reader, 9 * "a")
+        
