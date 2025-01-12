@@ -270,7 +270,7 @@ class Reader:
             self.in_bracketed_paste = reader.in_bracketed_paste
             self.screen = screen.copy()
             self.screeninfo = screeninfo.copy()
-            #self.line_end_offsets = last_refresh_line_end_offsets.copy()
+            self.line_end_offsets = last_refresh_line_end_offsets.copy()
             self.pos = reader.pos
             self.cxy = reader.cxy
             self.dimensions = reader.console.width, reader.console.height
@@ -336,6 +336,7 @@ class Reader:
         # entered or left paste mode (which changes prompts, causing reflowing).
         num_common_lines = 0
         offset = 0
+        trace("self.buffer = " + str(self.buffer))
         if self.last_refresh_cache.valid(self):
             trace("self.last_refresh_cache.valid")
             offset, num_common_lines = self.last_refresh_cache.get_cached_location(self)
