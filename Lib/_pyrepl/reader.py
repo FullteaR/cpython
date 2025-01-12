@@ -283,6 +283,9 @@ class Reader:
             return not (dimensions_changed or paste_changed)
 
         def get_cached_location(self, reader: Reader) -> tuple[int, int]:
+            trace("reader.pos = " + str(reader.pos))
+            trace("self.pos = " + str(self.pos))
+            trace("self.line_end_offsets = ", str(self.line_end_offsets))
             if self.invalidated:
                 raise ValueError("Cache is invalidated")
             offset = 0
@@ -332,9 +335,11 @@ class Reader:
         num_common_lines = 0
         offset = 0
         if self.last_refresh_cache.valid(self):
+            trace("elf.last_refresh_cache.valid")
             offset, num_common_lines = self.last_refresh_cache.get_cached_location(self)
 
         trace("self.last_refresh_cache.screen = " + str(self.last_refresh_cache.screen))
+        trace("num_common_lines = " + str(num_common_lines))
         screen = self.last_refresh_cache.screen
         del screen[num_common_lines:]
 
@@ -349,10 +354,7 @@ class Reader:
 
         prompt_from_cache = (offset and self.buffer[offset - 1] != "\n")
 
-        trace("self.buffer = " + str(self.buffer))
-        trace("offset = " + str(offset))
         lines = "".join(self.buffer[offset:]).split("\n")
-        trace("lines = " + str(lines))
 
         cursor_found = False
         lines_beyond_cursor = 0
@@ -373,14 +375,11 @@ class Reader:
                 prompt = ""
             else:
                 prompt = self.get_prompt(ln, ll >= pos >= 0)
-            trace("prompt = " + str(prompt))
-            trace("screen before while loop = " + str(screen))
             while "\n" in prompt:
                 pre_prompt, _, prompt = prompt.partition("\n")
                 last_refresh_line_end_offsets.append(offset)
                 screen.append(pre_prompt)
                 screeninfo.append((0, []))
-            trace("screen after while loop = " + str(screen))
             pos -= ll + 1
             prompt, lp = self.process_prompt(prompt)
             l, l2 = disp_str(line)
@@ -418,7 +417,6 @@ class Reader:
                     i += 1
         self.screeninfo = screeninfo
         self.cxy = self.pos2xy()
-        trace("self.msg: " + str(self.msg))
         if self.msg:
             for mline in self.msg.split("\n"):
                 screen.append(mline)
