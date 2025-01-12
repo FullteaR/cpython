@@ -270,7 +270,7 @@ class Reader:
             self.in_bracketed_paste = reader.in_bracketed_paste
             self.screen = screen.copy()
             self.screeninfo = screeninfo.copy()
-            self.line_end_offsets = last_refresh_line_end_offsets.copy()
+            #self.line_end_offsets = last_refresh_line_end_offsets.copy()
             self.pos = reader.pos
             self.cxy = reader.cxy
             self.dimensions = reader.console.width, reader.console.height
