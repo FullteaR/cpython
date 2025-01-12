@@ -287,7 +287,7 @@ class Reader:
         def get_cached_location(self, reader: Reader) -> tuple[int, int]:
             trace("reader.pos = " + str(reader.pos))
             trace("self.pos = " + str(self.pos))
-            trace("self.line_end_offsets = ", str(self.line_end_offsets))
+            trace("self.line_end_offsets = " + str(self.line_end_offsets))
             if self.invalidated:
                 raise ValueError("Cache is invalidated")
             offset = 0
