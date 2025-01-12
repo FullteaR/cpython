@@ -265,10 +265,12 @@ class Reader:
                          reader: Reader,
                          screen: list[str],
                          screeninfo: list[tuple[int, list[int]]],
+                         last_refresh_line_end_offsets: list[int],
             ) -> None:
             self.in_bracketed_paste = reader.in_bracketed_paste
             self.screen = screen.copy()
             self.screeninfo = screeninfo.copy()
+            self.line_end_offsets = last_refresh_line_end_offsets.copy()
             self.pos = reader.pos
             self.cxy = reader.cxy
             self.dimensions = reader.console.width, reader.console.height
@@ -335,7 +337,7 @@ class Reader:
         num_common_lines = 0
         offset = 0
         if self.last_refresh_cache.valid(self):
-            trace("elf.last_refresh_cache.valid")
+            trace("self.last_refresh_cache.valid")
             offset, num_common_lines = self.last_refresh_cache.get_cached_location(self)
 
         trace("self.last_refresh_cache.screen = " + str(self.last_refresh_cache.screen))
@@ -422,7 +424,7 @@ class Reader:
                 screen.append(mline)
                 screeninfo.append((0, []))
 
-        self.last_refresh_cache.update_cache(self, screen, screeninfo)
+        self.last_refresh_cache.update_cache(self, screen, screeninfo, last_refresh_line_end_offsets)
         return screen
 
     @staticmethod
