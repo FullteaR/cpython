@@ -343,7 +343,9 @@ class Reader:
         trace("self.last_refresh_cache.screen = " + str(self.last_refresh_cache.screen))
         trace("num_common_lines = " + str(num_common_lines))
         screen = self.last_refresh_cache.screen
+        trace("screen before delete = " + str(screen))
         del screen[num_common_lines:]
+        trace("screen before delete = " + str(screen))
 
         screeninfo = self.last_refresh_cache.screeninfo
         del screeninfo[num_common_lines:]
