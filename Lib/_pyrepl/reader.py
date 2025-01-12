@@ -345,7 +345,7 @@ class Reader:
         screen = self.last_refresh_cache.screen
         trace("screen before delete = " + str(screen))
         del screen[num_common_lines:]
-        trace("screen before delete = " + str(screen))
+        trace("screen after delete = " + str(screen))
 
         screeninfo = self.last_refresh_cache.screeninfo
         del screeninfo[num_common_lines:]
